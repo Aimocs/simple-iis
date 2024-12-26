@@ -1,0 +1,12 @@
+{% extends '../layouts/base.yolo' %}
+
+{% block content %}
+{% $session->set("YOU","SOMETHING") %}
+{{ $session->get("YOU") }}
+<h2>POST ID IS {{$id}}</h2>
+<h1>Post {{ $post->title }}</h1>
+you"low"
+{% if($post->user){ %}
+{{ $post->getUsername() }}
+{% } %}
+{% endblock  %}

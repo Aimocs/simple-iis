@@ -1,0 +1,6 @@
+{% extends '../layouts/base.yolo' %}
+
+{% block content %}
+<h1>Post {{ $id }}</h1>
+{% endblock  %}
+This is post {{ $id }}

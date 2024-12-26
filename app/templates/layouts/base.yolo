@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ $title }}</title>
+
+    <link rel="stylesheet" href="/assets/style.css">
+
+</head>
+<body>
+<header>
+    {% if( $session->hasFlash("success")){ %}
+    <p> {% foreach($session->getFlash("success") as $message){ %}
+    {{ $message }}
+    {% } } %}</p>
+    {% if( $session->hasFlash("error")){ %}
+    <p> {% foreach($session->getFlash("error") as $message){ %}
+        {{ $message }}
+        {% } } %}</p>
+    {% block header %}
+    <h1>Beautiful NAVBAR</h1>
+    {% endblock %}
+    {% if( $session->isAuthenticated()){ %}
+    <a href="/logout">LogOUT</a>
+    {% }else{ %}
+    <a href="/login">LogIN</a>
+    {% } %}
+</header>
+
+<main>
+    {% block content %}
+    Default Content
+    {% endblock %}
+</main>
+
+<footer>
+    {% block footer %}
+    <p>Beautiful Footer</p>
+    {% endblock %}
+</footer>
+</body>
+</html>

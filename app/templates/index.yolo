@@ -1,0 +1,12 @@
+{% extends 'layouts/base.yolo' %}
+
+{% block content %}
+{{ $name }}
+<br>
+{% if($name === null){  %}
+{% }else{ %}
+{{ "we have a name" }}
+{%  } %}
+<br>
+{{ "yolo" }}
+{% endblock %}

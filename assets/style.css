@@ -1,0 +1,45 @@
+/* Apply to the entire page */
+body {
+    background-color: black; /* Set the background color to black */
+    color: white; /* Set the text color to white */
+    font-family: Arial, sans-serif; /* Set a font */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+}
+
+a {
+    color: white; /* Make links white */
+    text-decoration: none; /* Remove underline from links */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: white; /* Make all headers white */
+}
+
+p {
+    color: white; /* Make paragraph text white */
+}
+
+ul, ol {
+    color: white; /* Make list items text white */
+}
+
+li {
+    color: white; /* Ensure list items are white */
+}
+
+button {
+    background-color: black; /* Set button background to black */
+    color: white; /* Set button text to white */
+    border: 1px solid white; /* Set button border color to white */
+}
+
+input, textarea {
+    background-color: black; /* Set input and textarea background to black */
+    color: white; /* Set text inside input/textarea to white */
+    border: 1px solid white; /* Set border to white */
+}
+
+::placeholder {
+    color: white; /* Make placeholder text white */
+}

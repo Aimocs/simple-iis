@@ -1,0 +1,33 @@
+{
+    "name": "aimocs/iis",
+    "description": "TU BCA FOURTH SEMSTER PROJECT",
+    "type": "project",
+    "require-dev": {
+        "symfony/var-dumper": "6.3.x-dev",
+        "phpunit/phpunit": "^11.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Aimocs\\Iis\\": "src/"
+        }
+    },
+    "repositories": [
+        {
+            "type" : "path",
+            "url" : "flat"
+        }
+    ],
+    "autoload-dev": {
+        "psr-4": {
+            "Aimocs\\Iis\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+	    "test": [
+            "phpunit"
+	    ]
+    },
+    "require": {
+        "aimocs/flatframework": "dev-main"
+    }
+}
