@@ -13,6 +13,8 @@ return [
     ['GET','/login',[\Aimocs\Iis\Controller\LoginController::class,'index',[\Aimocs\Iis\Flat\Http\Middleware\Guest::class]]],
     ['GET','/logout',[\Aimocs\Iis\Controller\LoginController::class,'logout',[\Aimocs\Iis\Flat\Http\Middleware\Authenticate::class]]],
     ['POST','/login',[\Aimocs\Iis\Controller\LoginController::class,'login']],
+    ['GET','/add-student',[\Aimocs\Iis\Controller\StudentController::class,'index']],
+    ['POST','/add-student',[\Aimocs\Iis\Controller\StudentController::class,'store']],
     ['GET','/dash',[\Aimocs\Iis\Controller\DashboardController::class,'index',
         [
             \Aimocs\Iis\Flat\Http\Middleware\Authenticate::class,

@@ -8,8 +8,7 @@ class SaveListener
 {
     public function __invoke(PostPersist $event)
     {
-
-        $event->getSession()->setFlash("success","yo check your emails!!");
+//        $event->getSession()->setFlash("success","yo check your emails!!");
 
     }
 

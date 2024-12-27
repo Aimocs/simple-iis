@@ -1,0 +1,22 @@
+{% extends '/layouts/base.yolo' %}
+{% block content %}
+<h1>Add Course Details</h1>
+<form action="/add-course" method="post">
+    <label for="cname">Course Name:</label><br>
+    <input type="text" id="cname" name="cname" required><br><br>
+
+    <label for="cduration">Course Duration:</label><br>
+    <input type="text" id="cduration" name="cduration" required><br><br>
+
+    <label for="cprice">Course Price:</label><br>
+    <input type="number" id="cprice" name="cprice" required><br><br>
+
+    <label for="cdescription">Short Course Description:</label><br>
+    <textarea id="cdescription" name="short_cdescription" rows="4" cols="30"></textarea><br><br>
+
+    <label for="ccategory">Category:</label><br>
+    <input type="text" id="ccategory" name="ccategory" required><br><br>
+
+    <input type="submit" value="Add Course">
+</form>
+{% endblock  %}

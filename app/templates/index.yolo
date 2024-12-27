@@ -1,4 +1,4 @@
-{% extends 'layouts/base.yolo' %}
+{% extends '/layouts/base.yolo' %}
 
 {% block content %}
 {{ $name }}

@@ -8,11 +8,13 @@ class Student extends Entity
 {
     public function __construct(
         private ?int $id,
-        public string $fname,
-        public string $mname,
-        public string $lname,
+        public string $fullname,
+        public int $age,
+        public string $gender,
         public string $phone,
         public string $email,
+        public string $address,
+        public string $level,
         private \DateTimeImmutable $createdAt
     )
     {
@@ -20,16 +22,28 @@ class Student extends Entity
     }
 
     public static function create(
-        string $fname,
-        string $mname,
-        string $lname,
+        string $fullname,
+        int $age,
+        string $gender,
         string $phone,
         string $email,
+        string $address,
+        string $level,
         ?int $id = null,
         ?\DateTimeImmutable $createdAt = null,
     )
     {
-        return new self($id, $fname,$mname, $lname,$phone,$email ,$createdAt ?? new \DateTimeImmutable());
+        return new self($id,$fullname,$age,$gender,$phone,$email ,$address,$level,$createdAt ?? new \DateTimeImmutable());
+    }
+
+    public function getCreatedAt(): \DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setId(?int $id): void
+    {
+        $this->id = $id;
     }
 
 
