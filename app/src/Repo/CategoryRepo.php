@@ -26,5 +26,18 @@ class CategoryRepo
         return $category;
     }
 
+    public function getAll()
+    {
+        $data =$this->database->SelectAll($this->table);
+        if (empty($data)){
+            return null;
+        }
+
+        $categories=[];
+        foreach($data as $category){
+            $categories[]= Category::create($category->name,$category->short_description,$category->id,new \DateTimeImmutable($category->created_at));
+        }
+        return $categories;
+    }
 
 }

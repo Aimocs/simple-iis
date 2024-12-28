@@ -15,6 +15,8 @@ return [
     ['POST','/login',[\Aimocs\Iis\Controller\LoginController::class,'login']],
     ['GET','/add-category',[\Aimocs\Iis\Controller\CategoryController::class,'index']],
     ['POST','/add-category',[\Aimocs\Iis\Controller\CategoryController::class,'store']],
+    ['GET','/add-course',[\Aimocs\Iis\Controller\CourseController::class,'index']],
+    ['POST','/add-course',[\Aimocs\Iis\Controller\CourseController::class,'store']],
     ['GET','/add-student',[\Aimocs\Iis\Controller\StudentController::class,'index']],
     ['POST','/add-student',[\Aimocs\Iis\Controller\StudentController::class,'store']],
     ['GET','/dash',[\Aimocs\Iis\Controller\DashboardController::class,'index',

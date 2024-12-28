@@ -2,20 +2,24 @@
 {% block content %}
 <h1>Add Course Details</h1>
 <form action="/add-course" method="post">
-    <label for="cname">Course Name:</label><br>
-    <input type="text" id="cname" name="name" required><br><br>
+    <label for="name">Course Name:</label><br>
+    <input type="text" id="name" name="name" required><br><br>
 
-    <label for="cduration">Course Duration:</label><br>
-    <input type="text" id="cduration" name="duration" required><br><br>
+    <label for="duration">Course Duration:</label><br>
+    <input type="text" id="duration" name="duration" required><br><br>
 
-    <label for="cprice">Course Price:</label><br>
-    <input type="number" id="cprice" name="price" required><br><br>
+    <label for="price">Course Price:</label><br>
+    <input type="number" id="price" name="price" required><br><br>
 
-    <label for="cdescription">Short Course Description:</label><br>
-    <textarea id="cdescription" name="short_description" rows="4" cols="30"></textarea><br><br>
+    <label for="description">Short Course Description:</label><br>
+    <textarea id="description" name="short_description" rows="4" cols="30"></textarea><br><br>
 
-    <label for="ccategory">Category:</label><br>
-    <input type="text" id="ccategory" name="category" required><br><br>
+    <label for="category">Category:</label><br>
+    <select id="category" name="category" required>
+        {% foreach($categories as $category){ %}
+        <option value="{{$category->getId() }}">{{ $category->name }} </option>
+        {% }%}
+    </select><br><br>
 
     <input type="submit" value="Add Course">
 </form>
