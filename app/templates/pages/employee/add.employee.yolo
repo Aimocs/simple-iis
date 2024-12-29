@@ -18,6 +18,12 @@
     <label for="email">Email:</label><br>
     <input type="email" id="email" name="email" placeholder="e.g., example@domain.com" required><br><br>
 
+    <br>
+    <span>Select Role</span><br>
+    {% foreach($employeeRoles as $empRole){ %}
+    <label for="{{ $empRole->getId() }}"> {{ $empRole->title }} </label>
+    <input id="{{ $empRole->getId() }}" type="radio" name="employeeRole" value="{{ $empRole->getId() }} "><br>
+    {% } %}<br><br>
     <label for="employeeType">Employee Type:</label><br>
     <select id="employeeType" name="employeeType" required>
         <option disabled value="">Select an option</option>

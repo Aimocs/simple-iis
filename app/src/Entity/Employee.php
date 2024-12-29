@@ -16,6 +16,7 @@ class Employee extends Entity
         public string $email,
         private \DateTimeImmutable $dateOfJoin,
         public EmployeeType $employeeType,
+        public EmployeeRole $employeeRole,
         private \DateTimeImmutable $createdAt
     )
     {
@@ -29,6 +30,7 @@ class Employee extends Entity
         string $email,
         \DateTimeImmutable $dateOfJoin,
         EmployeeType $employeeType,
+        EmployeeRole $employeeRole,
         ?int $id = null,
         ?\DateTimeImmutable $createdAt= null,
     )
@@ -43,6 +45,7 @@ class Employee extends Entity
             $email,
             $dateOfJoin,
             $employeeType,
+            $employeeRole,
             $createdAt?? new \DateTimeImmutable()
         );
 

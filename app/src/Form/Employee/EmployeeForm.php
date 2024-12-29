@@ -4,6 +4,7 @@ namespace Aimocs\Iis\Form\Employee;
 
 use Aimocs\Iis\Entity\Employee;
 use Aimocs\Iis\Repo\EmployeeMapper;
+use Aimocs\Iis\Repo\EmployeeRoleRepo;
 use Aimocs\Iis\Repo\EmployeeTypeRepo;
 
 class EmployeeForm
@@ -15,10 +16,11 @@ class EmployeeForm
     private string $email;
     private string $employeeType;
     private string $dateOfJoin;
+    private string $employeeRole;
 
     private array $errors = [];
 
-    public function __construct(private EmployeeMapper $employeeMapper, private EmployeeTypeRepo $employeeTypeRepo)
+    public function __construct(private EmployeeMapper $employeeMapper, private EmployeeTypeRepo $employeeTypeRepo,private  EmployeeRoleRepo $employeeRoleRepo)
     {
     }
 
@@ -29,7 +31,9 @@ class EmployeeForm
         string  $phone,
         string  $email,
         int  $employeeType,
-        string  $dateOfJoin
+        string  $dateOfJoin,
+        int $employeeRole
+
     ): void
     {
         $this->firstName = $firstName;
@@ -39,12 +43,14 @@ class EmployeeForm
         $this->email = $email;
         $this->employeeType = $employeeType;
         $this->dateOfJoin = $dateOfJoin;
+        $this->employeeRole = $employeeRole;
     }
 
     public function save(): Employee
     {
         $empType = $this->employeeTypeRepo->findById($this->employeeType);
 
+        $empRole = $this->employeeRoleRepo->findById($this->employeeRole);
         $employee = Employee::create(
             $this->firstName,
             $this->middleName,
@@ -52,7 +58,8 @@ class EmployeeForm
             $this->phone,
             $this->email,
             new \DateTimeImmutable($this->dateOfJoin),
-            $empType
+            $empType,
+            $empRole
         );
         $this->employeeMapper->save($employee);
         return $employee;

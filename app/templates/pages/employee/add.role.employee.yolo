@@ -1,0 +1,11 @@
+{% extends '/layouts/base.yolo' %}
+{% block content %}
+<form  action="/add-role-employee" method="post" >
+    <h2>Create Employee Role</h2>
+
+    <label for="title">Role Title:</label><br>
+    <input type="text" id="title" name="title" placeholder="for eg.. Teacher,Staff" required><br><br>
+
+    <button type="submit">Register Employee</button>
+</form>
+{% endblock %}

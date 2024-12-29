@@ -2,18 +2,23 @@
 
 namespace Aimocs\Iis\Controller;
 
+use Aimocs\Iis\Entity\EmployeeRole;
 use Aimocs\Iis\Flat\Controller\AbstractController;
 use Aimocs\Iis\Flat\Http\RedirectResponse;
 use Aimocs\Iis\Flat\Http\Response;
 use Aimocs\Iis\Form\Employee\EmployeeForm;
 use Aimocs\Iis\Repo\EmployeeMapper;
+use Aimocs\Iis\Repo\EmployeeRoleMapper;
+use Aimocs\Iis\Repo\EmployeeRoleRepo;
 use Aimocs\Iis\Repo\EmployeeTypeRepo;
 
 class EmployeeController extends AbstractController
 {
     public function __construct(
         private EmployeeTypeRepo $employeeTypeRepo,
-        private EmployeeMapper $employeeMapper
+        private EmployeeMapper $employeeMapper,
+        private EmployeeRoleMapper $employeeRoleMapper,
+        private EmployeeRoleRepo $employeeRoleRepo,
     )
     {
     }
@@ -21,17 +26,19 @@ class EmployeeController extends AbstractController
     public function index(): Response
     {
         $employeeTypes = $this->employeeTypeRepo->getAll();
+        $employeeRoles = $this->employeeRoleRepo->getAll();
 
         return $this->render('pages/employee/add.employee',[
             "title"=>"Add Employee",
-            "employeeTypes"=>$employeeTypes
+            "employeeTypes"=>$employeeTypes,
+            "employeeRoles"=>$employeeRoles
         ]);
     }
 
     public function store(): Response
     {
 
-        $form = new EmployeeForm($this->employeeMapper,$this->employeeTypeRepo);
+        $form = new EmployeeForm($this->employeeMapper,$this->employeeTypeRepo,$this->employeeRoleRepo);
         $form->setFields(
             $this->request->input('fname'),
             $this->request->input('mname'),
@@ -40,6 +47,7 @@ class EmployeeController extends AbstractController
             $this->request->input('email'),
             $this->request->input('employeeType'),
             $this->request->input('dateOfJoin'),
+            $this->request->input('employeeRole')
         );
         if($form->hasValidationErrors()){
             foreach($form->getValidationErrors() as $error){
@@ -52,5 +60,23 @@ class EmployeeController extends AbstractController
         return new RedirectResponse('/add-employee');
 
         
+    }
+
+    public function role_index():Response
+    {
+       return $this->render('pages/employee/add.role.employee',["title"=>"Add Employee Role"]);
+    }
+
+    public function role_store():Response
+    {
+        $title = $this->request->input("title");
+        $empRole = EmployeeRole::create(
+            $title
+        );
+        $this->employeeRoleMapper->save($empRole);
+        $this->request->getSession()->setFlash("success",sprintf("NEW Employee ROLE ADDED!!! %s",$empRole->title));
+        return new RedirectResponse('/add-role-employee');
+
+
     }
 }

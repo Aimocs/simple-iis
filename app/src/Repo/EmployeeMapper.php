@@ -16,6 +16,7 @@ class EmployeeMapper
 
     public function save(Employee $employee)
     {
+        $empRoleId= $employee->employeeRole->getId();
         $empTypeId = $employee->employeeType->getId();
         $createdAt = ($employee->getCreatedAt())->format('Y-m-d H:i:s');
         $dateOfJoin = ($employee->getDateOfJoin())->format('Y-m-d');
@@ -27,6 +28,7 @@ class EmployeeMapper
             "email"=>$employee->email,
             "date_of_join"=>$dateOfJoin,
             "employee_type_id"=>$empTypeId,
+            "employee_role_id"=>$empRoleId,
             "created_at"=>$createdAt
         ]);
         $this->dataMapper->save($employee); // to dispatch postpresist event
