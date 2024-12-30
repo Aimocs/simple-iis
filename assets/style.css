@@ -1,45 +1,342 @@
-/* Apply to the entire page */
+:root {
+    --color-primary: #ffd700; /* Vibrant yellow for primary elements */
+    --color-danger: #ff4500; /* Red-orange for danger */
+    --color-success: #32cd32; /* Bright green for success */
+    --color-warning: #ffd700; /* Yellow for warnings to match the theme */
+    --color-white: #000; /* Black for text or key contrasting elements */
+    --color-info-dark: #006400; /* Dark green for additional contrast */
+    --color-info-light: #7fff00; /* Lime green for highlights */
+    --color-dark: #000; /* Pure black for background and dark elements */
+    --color-light: rgba(54, 184, 54, 0.281); /* Greenish transparency for highlights */
+    --color-primary-variant: #ffea00; /* Slightly lighter yellow for accents */
+    --color-dark-variant: #222; /* Dark gray for subtle variations */
+    --color-background: #000; /* Pure black background */
+
+    --card-border-radius: 2rem;
+    --border-radius-1: 0.4rem;
+    --border-radius-2: 0.8rem;
+    --border-radius-3: 1.2rem;
+
+    --card-padding: 1.8rem;
+    --padding-1: 1.2rem;
+
+    --box-shadow: 0 2rem 3rem var(--color-light); /* Soft green glow */
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    /* outline: 0; */
+    /* appearance: none; */
+    /* border:0; */
+    box-sizing: border-box;
+}
+
+
+
 body {
-    background-color: black; /* Set the background color to black */
-    color: white; /* Set the text color to white */
-    font-family: Arial, sans-serif; /* Set a font */
-    margin: 0; /* Remove default margin */
-    padding: 0; /* Remove default padding */
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas: 
+    "header header"
+    "sidebar main"
+    "sidebar footer";
+}
+/*  Header Part Start */ 
+header {
+    top:0;
+    position:sticky;
+    grid-area: header;
+    background-color: var(--color-background);
+    color: var(--color-primary);
+    padding: 1em;
 }
 
-a {
-    color: white; /* Make links white */
-    text-decoration: none; /* Remove underline from links */
+
+/*  Header Part End */
+
+/* Aside Part Start */
+aside {
+    box-sizing: border-box;
+    height: calc(100vh - 50px);
+    width: 250px;
+    padding: 5px 1em;
+    border-right: 3px solid var(--color-primary);
+    top: 50px;
+    position:sticky;
+    align-self: start;
+    grid-area: sidebar;
+    color: var(--color-primary);
+    background-color: var(--color-background);
+    overflow-y: scroll;
+}
+aside ul { 
+    list-style: none;
+}
+aside > ul > li:first-child {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 16px;
+    .logo{
+        font-weight: 600;
+    }
 }
 
-h1, h2, h3, h4, h5, h6 {
-    color: white; /* Make all headers white */
+aside ul li.active a{
+    color: var(--color-info-dark);
+    svg{
+        fill: var(--color-info-dark);
+    }
 }
 
-p {
-    color: white; /* Make paragraph text white */
+aside a, aside .dropdown-btn, aside .logo {
+    /* border-radius: .5em; */
+    padding: .85em;
+    text-decoration: none;
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    gap: 1em;
 }
 
-ul, ol {
-    color: white; /* Make list items text white */
+.dropdown-btn{
+    width: 100%;
+    text-align: left;
+    background:none;
+    border-color: var(--color-primary);
+    font: inherit;
+    cursor:pointer;
+    margin-bottom: 1em;
+    border-radius: 0em;
 }
 
-li {
-    color: white; /* Ensure list items are white */
+aside svg{
+    flex-shrink: 0;
+    fill: var(--color-primary);
 }
 
-button {
-    background-color: black; /* Set button background to black */
-    color: white; /* Set button text to white */
-    border: 1px solid white; /* Set button border color to white */
+
+aside a span, aside .dropdown-btn span {
+    flex-grow:1;
 }
 
-input, textarea {
-    background-color: black; /* Set input and textarea background to black */
-    color: white; /* Set text inside input/textarea to white */
-    border: 1px solid white; /* Set border to white */
+aside a:hover ,aside .dropdown-btn:hover {
+    background-color: var(--color-light);
+}
+aside .sub-menu{
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: all 0.3s ease, background-position 0.4s ease;
+
+    > div{
+        overflow: hidden;
+    }
 }
 
-::placeholder {
-    color: white; /* Make placeholder text white */
+aside .sub-menu.show{
+    grid-template-rows: 1fr;
 }
+
+aside .sub-menu a{
+    padding-left: 2em;
+}
+
+.dropdown-btn svg {
+    transition: 200ms ease;
+}
+.rotate svg:last-child{
+    rotate: 180deg;
+}
+
+
+/* Aside Part End */
+main {
+    grid-area: main;
+    padding: min(30px,7%);
+    background-color: var(--color-info-dark);
+}
+main h2{
+    color: var(--color-primary)
+}
+.container{
+    border: 3px solid var(--color-primary);
+    margin-bottom: 2em;
+    padding: min(3em, 15%);
+
+    h2,p { margin-top: 1em; margin-bottom: 1em;}
+}
+footer {
+    grid-area: footer;
+    background: var(--color-dark);
+    color: var(--color-primary);
+    padding: 2em;
+}
+
+.log-btn{
+    min-width: 15%;
+    background:none;
+    border-color: var(--color-primary);
+    height: 80%;
+    cursor:pointer;
+    margin-bottom: 1em;
+
+}
+.log-btn a{
+    text-decoration: none;
+    color: var(--color-primary);
+}
+/* Table Start */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2em 0;
+    background-color: var(--color-dark);
+    color: var(--color-primary);
+    box-shadow: var(--box-shadow);
+    
+    overflow: hidden;
+}
+
+table thead {
+    background-color: var(--color-light);
+    color: var(--color-primary);
+}
+
+table th, table td {
+    padding: 1em;
+    text-align: left;
+    border-bottom: 1px solid var(--color-primary);
+}
+
+table .table-btn{
+    background: none;
+    border-color: var(--color-primary);
+    svg{
+        fill:var(--color-primary)
+    }
+}
+table th {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+table tr:nth-child(even) {
+    background-color: var(--color-dark-variant);
+}
+
+
+table tr:hover {
+    background-color: var(--color-light);
+    color: var(--color-dark);
+}
+/* Table End */
+/* Form Start */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+    padding: var(--card-padding);
+    background-color: var(--color-info-dark);
+    border: 1px solid var(--color-primary);
+    box-shadow: var(--box-shadow);
+}
+
+form label {
+    color: var(--color-primary);
+    font-weight: 500;
+}
+
+form input, form textarea, form select, form button {
+    padding: 0.8em;
+    border: 1px solid var(--color-primary);
+    background-color: var(--color-dark);
+    color: var(--color-primary);
+    font: inherit;
+    width: 100%;
+}
+
+form input:focus, form textarea:focus, form select:focus {
+    outline: none;
+    border-color: var(--color-info-light);
+    box-shadow: 0 0 5px var(--color-info-light);
+}
+
+form button {
+    cursor: pointer;
+    background-color: var(--color-success);
+    color: var(--color-dark);
+    font-weight: bold;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: var(--color-primary-variant);
+}
+
+form .form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+form .form-group.inline {
+    flex-direction: row;
+    gap: 1em;
+}
+
+form .form-group.inline label {
+    flex:.01em;
+}
+
+form .form-group.inline input {
+    flex: 2;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+/* Form End */
+/* Alert House Start */
+.alert-success {
+    display: block;
+    padding: 0.8em 1.2em;
+    background-color: #d4edda;
+    color: #28a745;
+    border: 1px solid #28a745;
+    border-radius: var(--border-radius-1);
+    margin-bottom: 1em;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.alert-success::before {
+    content: "😊 ";
+    font-size: 1.5rem;
+    margin-right: 0.5em;
+}
+
+.alert-error {
+    display: block;
+    padding: 0.8em 1.2em;
+    background-color: #f8d7da;
+    color: #dc3545;
+    border: 1px solid #dc3545;
+    border-radius: var(--border-radius-1);
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.alert-error::before {
+    content: "☹️ ";
+    font-size: 1.5rem;
+    margin-right: 0.5em;
+}
+
+/* Alert House End */

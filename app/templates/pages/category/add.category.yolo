@@ -1,7 +1,9 @@
 {% extends '/layouts/base.yolo' %}
 {% block content %}
 
-<h1>Add Category</h1>
+<div class="container">
+
+<h2>Add Category</h2>
 <form action="/add-category" method="post">
     <label for="categoryName">Category Name:</label><br>
     <input type="text" id="categoryName" name="categoryName" required><br><br>
@@ -9,7 +11,8 @@
     <label for="description">Description (optional):</label><br>
     <textarea id="description" name="description" rows="4" cols="50"></textarea><br><br>
 
-    <input type="submit" value="Add Category">
+    <button type="submit">Add Category</button>
 </form>
 
+</div>
 {% endblock %}

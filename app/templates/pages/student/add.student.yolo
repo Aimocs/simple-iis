@@ -1,13 +1,19 @@
 {% extends '/layouts/base.yolo' %}
 {% block content %}
-<h1>Add Student Details</h1>
+<div class="container">
+
+<h2>Add Student Details</h2>
 <form action="/add-student" method="post">
+    <div class="form-group inline">
+
     <label for="name">Full Name:</label><br>
     <input type="text" id="name" name="name" required><br><br>
 
     <label for="age">Age:</label><br>
     <input type="number" id="age" name="age" required><br><br>
 
+    </div>
+    <div class="form-group inline">
     <label for="gender">Gender:</label><br>
     <select id="gender" name="gender" required>
         <option value="male">Male</option>
@@ -15,11 +21,12 @@
         <option value="other">Other</option>
     </select><br><br>
 
+    </div>
     <label for="email">Email:</label><br>
     <input type="email" id="email" name="email" required><br><br>
-
     <label for="phone">Phone Number:</label><br>
     <input type="tel" id="phone" name="phone" placeholder="+977XXXXXXXXXXX" required><br><br>
+    <div class="form-group inline">
 
     <label for="address">Address:</label><br>
     <textarea id="address" name="address" rows="4" cols="30" required></textarea><br><br>
@@ -33,7 +40,9 @@
         <option value="other">Other</option>
     </select><br><br>
 
-    <input type="submit" value="Add Student">
+    </div>
+    <button type="submit" >Add Student</button>
 </form>
+</div>
 
 {% endblock  %}

@@ -1,7 +1,11 @@
 {% extends '/layouts/base.yolo' %}
 {% block content %}
+<div class="container">
+
+<h2>Employee Registration</h2>
 <form  action="/add-employee" method="post" >
-    <h2>Employee Registration</h2>
+
+    <div class="form-group inline">
 
     <label for="fname">First Name:</label><br>
     <input type="text" id="fname" name="fname" placeholder="Enter first name" required><br><br>
@@ -11,19 +15,25 @@
 
     <label for="lname">Last Name:</label><br>
     <input type="text" id="lname" name="lname" placeholder="Enter last name" required><br><br>
-
+    </div>
+    <div class="inline form-group">
     <label for="phone">Phone:</label><br>
     <input type="text" id="phone" name="phone" placeholder="e.g., +1 (555) 123-4567" required><br><br>
-
     <label for="email">Email:</label><br>
     <input type="email" id="email" name="email" placeholder="e.g., example@domain.com" required><br><br>
 
+    </div>
     <br>
+    <div class="form-group inline">
+
     <span>Select Role</span><br>
     {% foreach($employeeRoles as $empRole){ %}
     <label for="{{ $empRole->getId() }}"> {{ $empRole->title }} </label>
     <input id="{{ $empRole->getId() }}" type="radio" name="employeeRole" value="{{ $empRole->getId() }} "><br>
     {% } %}<br><br>
+    </div>
+    <div class="inline form-group">
+
     <label for="employeeType">Employee Type:</label><br>
     <select id="employeeType" name="employeeType" required>
         <option disabled value="">Select an option</option>
@@ -31,10 +41,11 @@
         <option value="{{ $empType->getId() }}">{{$empType->title}}({{$empType->short_title}})</option>
         {% } %}
     </select><br><br>
-
     <label for="dateOfJoin">Date of Joining:</label><br>
     <input type="date" id="dateOfJoin" name="dateOfJoin" required><br><br>
+    </div>
 
     <button type="submit">Register Employee</button>
 </form>
+</div>
 {% endblock %}
