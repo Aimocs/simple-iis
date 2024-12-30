@@ -46,5 +46,10 @@ class Student extends Entity
         $this->id = $id;
     }
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
 
 }

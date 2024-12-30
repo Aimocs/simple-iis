@@ -42,7 +42,7 @@ class DetailFrom
 
     public function save(): Student
     {
-        $student = Student::create($this->name, $this->age, $this->gender, $this->email, $this->phone, $this->address, $this->level);
+        $student = Student::create($this->name, $this->age, $this->gender, $this->phone,$this->email, $this->address, $this->level);
 
         $this->studentMapper->save($student);
 

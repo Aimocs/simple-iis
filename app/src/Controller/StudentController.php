@@ -7,16 +7,23 @@ use Aimocs\Iis\Flat\Http\RedirectResponse;
 use Aimocs\Iis\Flat\Http\Response;
 use Aimocs\Iis\Form\Student\DetailFrom;
 use Aimocs\Iis\Repo\StudentMapper;
+use Aimocs\Iis\Repo\StudentRepo;
 
 class StudentController extends AbstractController
 {
-    public function __construct(private StudentMapper $studentMapper)
+    public function __construct(private StudentMapper $studentMapper,private StudentRepo $studentRepo)
     {
     }
 
     public function index(): Response
     {
         return $this->render("pages/student/add.student",["title"=>"Add Student"]);
+    }
+
+    public function showAll(): Response
+    {
+        $students=$this->studentRepo->getAll();
+        return $this->render("pages/student/show.student",["title"=>"Show Students","students"=>$students]);
     }
 
 

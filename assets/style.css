@@ -216,6 +216,10 @@ table .table-btn{
     svg{
         fill:var(--color-primary)
     }
+    a{
+        text-decoration: none;
+        color: var(--color-primary);
+    }
 }
 table th {
     font-weight: 600;
