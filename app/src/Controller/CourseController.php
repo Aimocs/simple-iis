@@ -8,10 +8,11 @@ use Aimocs\Iis\Flat\Http\Response;
 use Aimocs\Iis\Form\Course\CourseForm;
 use Aimocs\Iis\Repo\CategoryRepo;
 use Aimocs\Iis\Repo\CourseMapper;
+use Aimocs\Iis\Repo\CourseRepo;
 
 class CourseController extends AbstractController
 {
-    public function __construct(private CourseMapper $courseMapper,private CategoryRepo $categoryRepo)
+    public function __construct(private CourseMapper $courseMapper,private CategoryRepo $categoryRepo,private CourseRepo $courseRepo)
     {
     }
 
@@ -22,6 +23,12 @@ class CourseController extends AbstractController
 
     }
 
+    public function showAll():Response
+    {
+        $courses= $this->courseRepo->getAll();
+        return $this->render("pages/course/show.course",["title"=>"Show Course","courses"=>$courses]);
+
+    }
     public function store(): Response
     {
 

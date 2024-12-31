@@ -8,6 +8,7 @@ use Aimocs\Iis\Flat\Http\RedirectResponse;
 use Aimocs\Iis\Flat\Http\Response;
 use Aimocs\Iis\Form\Employee\EmployeeForm;
 use Aimocs\Iis\Repo\EmployeeMapper;
+use Aimocs\Iis\Repo\EmployeeRepo;
 use Aimocs\Iis\Repo\EmployeeRoleMapper;
 use Aimocs\Iis\Repo\EmployeeRoleRepo;
 use Aimocs\Iis\Repo\EmployeeTypeRepo;
@@ -19,10 +20,17 @@ class EmployeeController extends AbstractController
         private EmployeeMapper $employeeMapper,
         private EmployeeRoleMapper $employeeRoleMapper,
         private EmployeeRoleRepo $employeeRoleRepo,
+        private EmployeeRepo $employeeRepo
     )
     {
     }
 
+    public function showAll():Response
+    {
+
+        $employees= $this->employeeRepo->getAll();
+        return $this->render("pages/employee/show.employee",["title"=>"Show Employees","employees"=>$employees]);
+    }
     public function index(): Response
     {
         $employeeTypes = $this->employeeTypeRepo->getAll();
@@ -76,7 +84,12 @@ class EmployeeController extends AbstractController
         $this->employeeRoleMapper->save($empRole);
         $this->request->getSession()->setFlash("success",sprintf("NEW Employee ROLE ADDED!!! %s",$empRole->title));
         return new RedirectResponse('/add-role-employee');
+    }
 
-
+    public function role_showAll():Response
+    {
+        $employeeRoles=$this->employeeRoleRepo->getAll();
+        return $this->render("pages/employee/show.role.employee",["title"=>"Show Employee Roles","employeeRoles"=>$employeeRoles]);
+        
     }
 }

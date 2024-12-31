@@ -23,6 +23,11 @@ class CategoryController extends AbstractController
         return $this->render('pages/category/add.category',["title"=>"Add Category"]);
     }
 
+    public function showAll():Response
+    {
+        $categories = $this->categoryRepo->getAll();
+        return $this->render('pages/category/show.category',["title"=>"Show Category","categories"=>$categories]);
+    }
     public function store():Response
     {
         $form  = new CategoryForm($this->categoryMapper);
