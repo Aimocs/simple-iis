@@ -1,0 +1,19 @@
+{% extends '/layouts/base.yolo' %}
+{% block content %}
+<div class="container">
+    <h2>Add Course to Teacher</h2>
+    <form action="/add-course-teacher" method="post">
+        <div class="form-group inline">
+            <label for="course-student">Course Type:</label><br>
+            <select id="course-student" name="course_id" required>
+                <option disabled value="">Select an option(Price in NPR)</option>
+                {% foreach($courses as $course){ %}
+                <option value="{{ $course->getId() }}">{{$course->name}}({{$course->price}})</option>
+                {% } %}
+            </select><br><br>
+        </div>
+        <input type="number" value="{{$id}}" name="teacher_id" hidden>
+        <button type="submit">Add Teacher to Course </button>
+    </form>
+</div>
+{% endblock %}

@@ -155,7 +155,7 @@ aside .sub-menu a{
 main {
     grid-area: main;
     padding: min(30px,7%);
-    background-color: var(--color-info-dark);
+    background-color: var(--color-dark-variant);
 }
 main h2{
     color: var(--color-primary)

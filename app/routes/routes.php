@@ -25,6 +25,8 @@ return [
     ['POST','/add-employee',[\Aimocs\Iis\Controller\EmployeeController::class,'store']],
     ['GET','/add-role-employee',[\Aimocs\Iis\Controller\EmployeeController::class,'role_index']],
     ['POST','/add-role-employee',[\Aimocs\Iis\Controller\EmployeeController::class,'role_store']],
+    ['GET','/add-course-teacher',[\Aimocs\Iis\Controller\CourseTeacherController::class,'index']],
+    ['POST','/add-course-teacher',[\Aimocs\Iis\Controller\CourseTeacherController::class,'store']],
     ['GET','/add-course-student',[\Aimocs\Iis\Controller\CourseStudentController::class,'index']],
     ['POST','/add-course-student',[\Aimocs\Iis\Controller\CourseStudentController::class,'store']],
     ['GET','/add-student',[\Aimocs\Iis\Controller\StudentController::class,'index']],

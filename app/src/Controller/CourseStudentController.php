@@ -10,6 +10,7 @@ use Aimocs\Iis\Flat\Http\RedirectResponse;
 use Aimocs\Iis\Flat\Http\Response;
 use Aimocs\Iis\Repo\CourseRepo;
 use Aimocs\Iis\Repo\CourseStudentMapper;
+use Aimocs\Iis\Repo\CourseStudentRepo;
 use Aimocs\Iis\Repo\StudentRepo;
 
 class CourseStudentController extends  AbstractController
@@ -17,7 +18,8 @@ class CourseStudentController extends  AbstractController
     public function __construct(
         private CourseRepo $courseRepo,
         private StudentRepo $studentRepo,
-        private CourseStudentMapper $courseStudentMapper
+        private CourseStudentMapper $courseStudentMapper,
+        private CourseStudentRepo $courseStudentRepo
     )
     {
     }
@@ -29,7 +31,7 @@ class CourseStudentController extends  AbstractController
         }else{
             throw new HttpException("Bad Request",404);
         }
-        $courses=$this->courseRepo->getAll();
+        $courses= $this->courseStudentRepo->getCoursesExceptStudentId($id);
         return $this->render("pages/course-student/add",["title"=>"Add course to student","courses"=>$courses,"id"=>$id]);
     }
 

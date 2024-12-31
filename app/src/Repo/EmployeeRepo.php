@@ -2,6 +2,7 @@
 
 namespace Aimocs\Iis\Repo;
 
+use Aimocs\Iis\Entity\CourseTeacher;
 use Aimocs\Iis\Entity\Employee;
 use Aimocs\Iis\Flat\Database\Database;
 
@@ -15,6 +16,18 @@ class EmployeeRepo
         private EmployeeTypeRepo $employeeTypeRepo
     )
     {
+    }
+
+    public function findById(int $id):?Employee
+    {
+        $data =$this->database->SelectByCriteria($this->table,"*","id",[$id]);
+        if(empty($data)){
+            return null;
+        }
+        $employee= $data[0];
+        $empRole = $this->employeeRoleRepo->findById($employee->employee_role_id);
+        $empType = $this->employeeTypeRepo->findById($employee->employee_type_id);
+        return Employee::create($employee->fname,$employee->mname,$employee->lname,$employee->phone,$employee->email,new \DateTimeImmutable($employee->date_of_join),$empType,$empRole,$employee->id,new \DateTimeImmutable($employee->created_at));
     }
 
     public function getAll(): ? array
