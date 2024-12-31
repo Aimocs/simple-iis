@@ -1,0 +1,31 @@
+{% extends '/layouts/base.yolo' %}
+{% block content %}
+<div class="container">
+    <h2>Add Installment</h2>
+    <form action="/add-student-payment" method="post">
+        <div class="form-group inline">
+            <label for="course-student">Course Type:</label><br>
+            <select id="course-student" name="course_id" required>
+                <option disabled value="">Select an option(Price in NPR)</option>
+                {% foreach($courses as $course){ %}
+                <option value="{{ $course->getId() }}">{{$course->name}}({{$course->price}})</option>
+                {% } %}
+<!--                change courseprice to offered price-->
+            </select><br><br>
+        </div>
+        <div class="form-group inline">
+
+            <label for="amount">Intallment Amount</label>
+            <input type="number" id="amount" name="amount" placeholder="eg.. 10000">
+
+            <label for="remark">Remark</label>
+            <input type="text" id="remark" name="remark" placeholder="eg.. in cash(or something to remember)">
+
+        </div>
+
+        <input type="number" value="{{$id}}" name="student_id" hidden>
+
+        <button type="submit">Add Installment </button>
+    </form>
+</div>
+{% endblock %}

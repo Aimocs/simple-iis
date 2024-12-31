@@ -16,6 +16,7 @@ class CourseTeacherRepo
     {
     }
 
+
     public function getCoursesExceptTeacherId(int $teacher_id):?array
     {
         $data = $this->database->CustomQuery("SELECT * FROM `courses` WHERE id NOT IN ( SELECT course_teacher.course_id FROM course_teacher WHERE course_teacher.teacher_id = {$teacher_id} ); ");

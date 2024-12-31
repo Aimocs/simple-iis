@@ -29,6 +29,8 @@ return [
     ['POST','/add-course-teacher',[\Aimocs\Iis\Controller\CourseTeacherController::class,'store']],
     ['GET','/add-course-student',[\Aimocs\Iis\Controller\CourseStudentController::class,'index']],
     ['POST','/add-course-student',[\Aimocs\Iis\Controller\CourseStudentController::class,'store']],
+    ['GET','/add-student-payment',[\Aimocs\Iis\Controller\StudentPaymentController::class,'index']],
+    ['POST','/add-student-payment',[\Aimocs\Iis\Controller\StudentPaymentController::class,'store']],
     ['GET','/add-student',[\Aimocs\Iis\Controller\StudentController::class,'index']],
     ['GET','/show-students',[\Aimocs\Iis\Controller\StudentController::class,'showAll']],
     ['POST','/add-student',[\Aimocs\Iis\Controller\StudentController::class,'store']],

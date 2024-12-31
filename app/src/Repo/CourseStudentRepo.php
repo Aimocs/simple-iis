@@ -3,6 +3,7 @@
 namespace Aimocs\Iis\Repo;
 
 use Aimocs\Iis\Entity\Course;
+use Aimocs\Iis\Entity\CourseStudent;
 use Aimocs\Iis\Flat\Database\Database;
 
 class CourseStudentRepo
@@ -13,11 +14,38 @@ class CourseStudentRepo
 
     public function __construct(
         private Database $database,
-        private CategoryRepo $categoryRepo
+        private CategoryRepo $categoryRepo,
+        private CourseRepo $courseRepo,
+        private StudentRepo $studentRepo
     )
     {
     }
+    public function findByCourseAndStudentIds(int $course_id,int $student_id):?CourseStudent
+    {
+        $data = $this->database->CustomQuery("SELECT * FROM course_student WHERE course_id ={$course_id} AND student_id={$student_id} ");
+        if(empty($data)){
+            return null;
+        }
+        $data = $data[0];
+        $course_id = $data->course_id;
+        $student_id= $data->student_id;
+        $course = $this->courseRepo->findById($course_id);
+        $student = $this->studentRepo->findById($student_id);
+        $course_student = CourseStudent::create($course,$student,$data->price,$data->id,new \DateTimeImmutable($data->created_at));
+        return $course_student;
+    }
 
+
+    public function getCoursesByStudentId(int $student_id):?array
+    {
+        $data = $this->database->CustomQuery("SELECT * FROM `courses` WHERE id IN ( SELECT course_student.course_id FROM course_student WHERE course_student.student_id = {$student_id} ); ");
+        $courses = [];
+        foreach($data as $course){
+            $category=$this->categoryRepo->findById($course->category_id);
+            $courses[]=Course::create($course->name,$course->short_description,$course->price,$category,$course->duration,$course->id,new \DateTimeImmutable($course->created_at));
+        }
+        return $courses;
+    }
     public function getCoursesExceptStudentId(int $student_id):?array
     {
         $data = $this->database->CustomQuery("SELECT * FROM `courses` WHERE id NOT IN ( SELECT course_student.course_id FROM course_student WHERE course_student.student_id = {$student_id} ); ");
