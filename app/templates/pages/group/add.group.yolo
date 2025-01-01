@@ -1,0 +1,69 @@
+{% extends '/layouts/base.yolo' %}
+{% block content %}
+<div class="container">
+
+    <form method="post" action="/add-group">
+        <h2>Group Registration</h2>
+
+        <label for="name">Group Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="course">Course:</label>
+        <select id="course" name="course_id" required onchange="fetchTeachers()">
+            {% foreach($courses as $course){ %}
+            <option value="{{$course->getId()}}">{{$course->name}}</option>
+            {% } %}
+        </select>
+
+        <label for="teacher">Teacher:</label>
+        <select id="teacher" name="teacher_id" required>
+            <!-- Populate dynamically with available teachers -->
+        </select>
+
+        <label for="start_datetime">Start Date and Time:</label>
+        <input type="datetime-local" id="start_datetime" name="start_datetime" required>
+
+        <label for="capacity">Capacity (optional):</label>
+        <input type="number" id="capacity" name="capacity" min="1">
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<script>
+    function fetchTeachers() {
+        var courseId = document.getElementById('course').value; // Get selected course ID
+        var teacherSelect = document.getElementById('teacher'); // Teacher dropdown
+
+        if (!courseId) {
+            teacherSelect.innerHTML = '<option value="">Select Course First</option>';
+            return;
+        }
+
+        // Create a new XMLHttpRequest object
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/api/get-course-teachers/' + courseId, true); // URL to get teachers for the selected course
+
+        // Define the event handler for the response
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var teachers = JSON.parse(xhr.responseText); // Parse the JSON response
+                teacherSelect.innerHTML = '<option value="">Select Teacher</option>'; // Reset teacher dropdown
+
+                // Populate teacher dropdown with the new options
+                teachers.forEach(function(teacher) {
+                    var option = document.createElement('option');
+                    option.value = teacher.id; // Teacher ID as the value
+                    option.textContent = teacher.full_name; // Teacher full name as the text
+                    teacherSelect.appendChild(option);
+                });
+            }
+        };
+
+        // Send the request
+        xhr.send();
+    }
+
+    fetchTeachers();
+</script>
+{% endblock %}
