@@ -224,6 +224,9 @@ table .table-btn{
 table .table-btn:hover{
     background: var(--color-primary);
     border-color: var(--color-background);
+    svg{
+        fill:var(--color-background);
+    }
     a{
         color: var(--color-background);
     }

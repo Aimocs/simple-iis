@@ -45,4 +45,19 @@ class GroupRepo
         }
         return $groups;
     }
+
+    public function getGroupsValidByCourseId(int $course_id):?array
+    {
+        $data =$this->database->CustomQuery("SELECT * FROM `{$this->table}` WHERE course_id = '{$course_id}' ");
+        if (empty($data)){
+            return null;
+        }
+        $groups=[];
+        foreach($data as $group){
+            $course = $this->courseRepo->findById($group->course_id);
+            $teacher = $this->teacherRepo->findById($group->teacher_id);
+            $groups[]= Group::create($group->name,$course,$teacher,new \DateTimeImmutable($group->start_datetime),$group->capacity,$group->id,new \DateTimeImmutable($group->created_at));
+        }
+        return $groups;
+    }
 }

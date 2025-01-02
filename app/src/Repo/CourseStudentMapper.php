@@ -12,6 +12,15 @@ class CourseStudentMapper
     {
     }
 
+    public function edit(CourseStudent $courseStudent)
+    {
+        $cs_id = $courseStudent->getId();
+        $course_id = $courseStudent->course->getId();
+        $student_id = $courseStudent->student->getId();
+        $group_id = $courseStudent->group?->getId();
+        $createdAt = ($courseStudent->getCreatedAt())->format('Y-m-d H:i:s');
+        $id = $this->dataMapper->getDatabase()->Update($this->table,["course_id"=>$course_id,"student_id"=>$student_id,"price"=>$courseStudent->price,"group_id"=>$group_id,"created_at"=>$createdAt],"id",[$cs_id]);
+    }
     public function save(CourseStudent $courseStudent)
     {
         $course_id = $courseStudent->course->getId();

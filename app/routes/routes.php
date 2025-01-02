@@ -33,6 +33,9 @@ return [
     ['POST','/add-course-teacher',[\Aimocs\Iis\Controller\CourseTeacherController::class,'store']],
     ['GET','/add-course-student',[\Aimocs\Iis\Controller\CourseStudentController::class,'index']],
     ['POST','/add-course-student',[\Aimocs\Iis\Controller\CourseStudentController::class,'store']],
+    ['GET','/add-student-group',[\Aimocs\Iis\Controller\StudentGroupController::class,'index']],
+    ['POST','/add-student-group',[\Aimocs\Iis\Controller\StudentGroupController::class,'edit']],
+    ['GET','/api/get-course-groups/{course_id}',[\Aimocs\Iis\Controller\StudentGroupController::class,'getGroup']],
     ['GET','/add-student-payment',[\Aimocs\Iis\Controller\StudentPaymentController::class,'index']],
     ['POST','/add-student-payment',[\Aimocs\Iis\Controller\StudentPaymentController::class,'store']],
     ['GET','/add-student',[\Aimocs\Iis\Controller\StudentController::class,'index']],
@@ -42,7 +45,6 @@ return [
         [
             \Aimocs\Iis\Flat\Http\Middleware\Authenticate::class,
             \Aimocs\Iis\Flat\Http\Middleware\Dummy::class
-
         ]
     ]]
 ];

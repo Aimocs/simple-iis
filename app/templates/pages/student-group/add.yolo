@@ -1,0 +1,79 @@
+{% extends '/layouts/base.yolo' %}
+{% block content %}
+<div class="container">
+    <h2>Select a Group</h2>
+    <hr>
+    <form method="post" action="/add-student-group">
+        <input name="student_id" value="{{$id}}" hidden type="number">
+        <label for="course">Course:</label>
+        <select id="course" name="course_id" required onchange="fetchGroupsByCourse(this.value)">
+            <option disabled selected value="">Select a course</option>
+            {% foreach ($courses as $course): %}
+            <option value="{{$course->getId()}}"> {{$course->name}}</option>
+            {% endforeach; %}
+        </select>
+
+        <div id="groups-container">
+            <!-- Groups form will be dynamically loaded here -->
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+<script>
+    function fetchGroupsByCourse(courseId) {
+        if (!courseId) return; // Exit if no course is selected
+
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", `/api/get-course-groups/${courseId}`, true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                const groupsContainer = document.getElementById("groups-container");
+
+                try {
+                    const groups = JSON.parse(xhr.responseText);
+
+                    if (groups.length === 0) {
+                        groupsContainer.innerHTML = "<p>No groups available for this course.</p>";
+                        return;
+                    }
+
+                    // Clear the container
+                    groupsContainer.innerHTML = "";
+
+                    // Dynamically create the form elements for groups
+                    groups.forEach(group => {
+                        const radioInput = document.createElement("input");
+                        radioInput.type = "radio";
+                        radioInput.id = `group_${group.id}`;
+                        radioInput.name = "group_id";
+                        radioInput.value = group.id;
+                        radioInput.required = true;
+
+                        const label = document.createElement("label");
+                        label.htmlFor = `group_${group.id}`;
+                        label.innerHTML = `
+                                <strong>Group Name:</strong> ${group.name}<br>
+                                <strong>Teacher:</strong> ${group.teacher_name}<br>
+                                <strong>Start Date and Time:</strong> ${group.start_datetime}<br>
+                                <strong>Capacity:</strong> ${group.capacity || "Not specified"}<br>
+                            `;
+
+                        // Append to the container
+                        groupsContainer.appendChild(radioInput);
+                        groupsContainer.appendChild(label);
+                        groupsContainer.appendChild(document.createElement("br"));
+                    });
+                } catch (e) {
+                    groupsContainer.innerHTML = "<p>Error loading groups. Please try again.</p>";
+                }
+            }
+        };
+
+        // Send the course ID to the server
+        xhr.send("course_id=" + encodeURIComponent(courseId));
+    }
+</script>
+{% endblock  %}

@@ -39,7 +39,7 @@
             </button>
             <ul class="sub-menu">
                 <div>
-                    <li><a href="/add-employee">Add Employee</a></lil>
+                    <li><a href="/add-employee">Add Employee</a></li>
                     <li><a href="/show-employees">Show Employees</a></li>
                     <li><a href="/add-role-employee">Add Employee Role</a></li>
                     <li><a href="/show-roles-employee">Show Employee Roles</a></li>
