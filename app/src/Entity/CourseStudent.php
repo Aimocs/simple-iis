@@ -11,6 +11,7 @@ class CourseStudent extends Entity
         private ?int $id,
         public Course $course,
         public Student $student,
+        public ?Group $group,
         public int $price,
         private \DateTimeImmutable $createdAt
     )
@@ -21,11 +22,12 @@ class CourseStudent extends Entity
         Course  $course,
         Student $student,
         int $price,
+        ?Group $group = null,
         ?int $id = null,
         ?\DateTimeImmutable $createdAt = null
     )
     {
-        return new self($id,$course,$student,$price,$createdAt?? new \DateTimeImmutable());
+        return new self($id,$course,$student,$group,$price,$createdAt?? new \DateTimeImmutable());
     }
 
     public function getId(): ?int

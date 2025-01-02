@@ -13,7 +13,7 @@
              </select><br><br>
          </div>
         <label for="price">Offered Price</label>
-        <input type="number" name="price" placeholder="eg.. 10000">
+        <input type="number" name="price" placeholder="eg.. 10000" required>
         <input type="number" value="{{$id}}" name="student_id" hidden>
 
         <button type="submit">Add Student to Course </button>

@@ -221,6 +221,13 @@ table .table-btn{
         color: var(--color-primary);
     }
 }
+table .table-btn:hover{
+    background: var(--color-primary);
+    border-color: var(--color-background);
+    a{
+        color: var(--color-background);
+    }
+}
 table th {
     font-weight: 600;
     text-transform: uppercase;

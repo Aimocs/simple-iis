@@ -16,7 +16,8 @@ class CourseStudentRepo
         private Database $database,
         private CategoryRepo $categoryRepo,
         private CourseRepo $courseRepo,
-        private StudentRepo $studentRepo
+        private StudentRepo $studentRepo,
+        private GroupRepo $groupRepo
     )
     {
     }
@@ -29,9 +30,12 @@ class CourseStudentRepo
         $data = $data[0];
         $course_id = $data->course_id;
         $student_id= $data->student_id;
+        $group_id = $data->group_id;
         $course = $this->courseRepo->findById($course_id);
         $student = $this->studentRepo->findById($student_id);
-        $course_student = CourseStudent::create($course,$student,$data->price,$data->id,new \DateTimeImmutable($data->created_at));
+        $group = $group_id===null ? null: $this->groupRepo->findById($group_id);
+
+        $course_student = CourseStudent::create($course,$student,$data->price,$group,$data->id,new \DateTimeImmutable($data->created_at));
         return $course_student;
     }
 
