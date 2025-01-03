@@ -21,6 +21,9 @@
             <td>{{$student->email}}</td>
             <td>
                 <button class="table-btn">
+                    <a href="/show-student-payment/{{$student->getId()}}">View Payments</a>
+                </button>
+                <button class="table-btn">
                     <a href="/add-course-student?id={{$student->getId()}}">AddCourse</a>
                 </button>
                 <button class="table-btn">

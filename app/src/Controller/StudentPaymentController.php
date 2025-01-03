@@ -9,12 +9,14 @@ use Aimocs\Iis\Flat\Http\RedirectResponse;
 use Aimocs\Iis\Flat\Http\Response;
 use Aimocs\Iis\Repo\CourseStudentRepo;
 use Aimocs\Iis\Repo\StudentPaymentMapper;
+use Aimocs\Iis\Repo\StudentPaymentRepo;
 
 class StudentPaymentController extends AbstractController
 {
     public function __construct(
         private CourseStudentRepo $courseStudentRepo,
-        private StudentPaymentMapper $studentPaymentMapper
+        private StudentPaymentMapper $studentPaymentMapper,
+        private StudentPaymentRepo $studentPaymentRepo
     )
     {
     }
@@ -30,6 +32,19 @@ class StudentPaymentController extends AbstractController
         $courses=$this->courseStudentRepo->getCoursesByStudentId($id);
 
         return $this->render("pages/student-payment/add",["title"=>"Add Installment","courses"=>$courses,"id"=>$id]);
+    }
+
+    public function show(int $student_id):Response
+    {
+        $courses_students = $this->courseStudentRepo->getCourseStudentsByStudentId($student_id);
+        $payments = [];
+        foreach($courses_students as $courses_student ){
+            $payments[] = $this->studentPaymentRepo->getPaymentsByStudentId($courses_student->getId());
+        }
+        $payments = array_filter($payments);
+
+        return $this->render("pages/student-payment/show",["title"=>"Show Payment Details","payments"=>$payments]);
+
     }
 
     public function store():Response

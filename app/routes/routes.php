@@ -37,6 +37,7 @@ return [
     ['POST','/add-student-group',[\Aimocs\Iis\Controller\StudentGroupController::class,'edit']],
     ['GET','/api/get-course-groups/{course_id}',[\Aimocs\Iis\Controller\StudentGroupController::class,'getGroup']],
     ['GET','/add-student-payment',[\Aimocs\Iis\Controller\StudentPaymentController::class,'index']],
+    ['GET','/show-student-payment/{student_id}',[\Aimocs\Iis\Controller\StudentPaymentController::class,'show']],
     ['POST','/add-student-payment',[\Aimocs\Iis\Controller\StudentPaymentController::class,'store']],
     ['GET','/add-student',[\Aimocs\Iis\Controller\StudentController::class,'index']],
     ['GET','/show-students',[\Aimocs\Iis\Controller\StudentController::class,'showAll']],
