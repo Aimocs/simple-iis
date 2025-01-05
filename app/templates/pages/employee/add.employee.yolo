@@ -41,9 +41,9 @@
         <option value="{{ $empType->getId() }}">{{$empType->title}}({{$empType->short_title}})</option>
         {% } %}
     </select><br><br>
+    </div>
     <label for="dateOfJoin">Date of Joining:</label><br>
     <input type="date" id="dateOfJoin" name="dateOfJoin" required><br><br>
-    </div>
 
     <button type="submit">Register Employee</button>
 </form>

@@ -1,0 +1,51 @@
+{% extends '/layouts/base.yolo' %}
+{% block content %}
+<div class="container">
+
+    <h2>Edit Employee</h2>
+    <form  action="/edit-employee" method="post" >
+
+        <input hidden type="number" name="id" value="{{$employee->getId()}}">
+        <div class="form-group inline">
+            <label for="fname">First Name:</label><br>
+            <input type="text" id="fname" name="fname" value="{{$employee->fname}}" placeholder="Enter first name" required><br><br>
+
+            <label for="mname">Middle Name:</label><br>
+            <input type="text" id="mname" name="mname" placeholder="Enter middle name (optional)" value="{{$employee->mname}}"><br><br>
+
+            <label for="lname">Last Name:</label><br>
+            <input type="text" id="lname" name="lname" placeholder="Enter last name" value="{{$employee->lname}}" required><br><br>
+        </div>
+        <div class="inline form-group">
+            <label for="phone">Phone:</label><br>
+            <input type="text" id="phone" name="phone" placeholder="e.g., +1 (555) 123-4567" value="{{$employee->phone}}" required><br><br>
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" placeholder="e.g., example@domain.com"  value="{{$employee->email}}" required><br><br>
+
+        </div>
+        <br>
+        <div class="form-group inline">
+
+            <span>Select Role</span><br>
+            {% foreach($employeeRoles as $empRole){ %}
+            <label for="{{ $empRole->getId() }}"> {{ $empRole->title }} </label>
+            <input id="{{ $empRole->getId() }}" {% if($employee->employeeRole->getId() === $empRole->getId()){ echo"checked"; }%} type="radio" name="employeeRole" value="{{ $empRole->getId() }} "><br>
+            {% } %}<br><br>
+        </div>
+        <div class="inline form-group">
+
+            <label for="employeeType">Employee Type:</label><br>
+            <select id="employeeType" name="employeeType" required>
+                <option disabled value="">Select an option</option>
+                {% foreach($employeeTypes as $empType){ %}
+                <option value="{{ $empType->getId() }}" {% if($employee->employeeType->getId() === $empType->getId()){ echo"selected";} %}>{{$empType->title}}({{$empType->short_title}})</option>
+                {% } %}
+            </select><br><br>
+        </div>
+        <label for="dateOfJoin">Date of Joining:</label><br>
+        <input type="date" id="dateOfJoin" name="dateOfJoin" value="{{ ($employee->getDateOfJoin())->format('Y-m-d')}}" required><br><br>
+
+        <button type="submit">Register Employee</button>
+    </form>
+</div>
+{% endblock %}

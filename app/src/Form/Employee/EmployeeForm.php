@@ -46,6 +46,25 @@ class EmployeeForm
         $this->employeeRole = $employeeRole;
     }
 
+    public function edit(int $id): Employee
+    {
+        $empType = $this->employeeTypeRepo->findById($this->employeeType);
+        $empRole = $this->employeeRoleRepo->findById($this->employeeRole);
+        $employee = Employee::create(
+            $this->firstName,
+            $this->middleName,
+            $this->lastName,
+            $this->phone,
+            $this->email,
+            new \DateTimeImmutable($this->dateOfJoin),
+            $empType,
+            $empRole,
+            $id
+        );
+        $this->employeeMapper->edit($employee);
+        return $employee;
+    }
+
     public function save(): Employee
     {
         $empType = $this->employeeTypeRepo->findById($this->employeeType);

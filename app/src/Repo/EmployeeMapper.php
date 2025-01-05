@@ -14,6 +14,23 @@ class EmployeeMapper
     {
     }
 
+    public function edit(Employee $employee)
+    {
+        $empRoleId= $employee->employeeRole->getId();
+        $empTypeId = $employee->employeeType->getId();
+        $dateOfJoin = ($employee->getDateOfJoin())->format('Y-m-d');
+        $id = $this->dataMapper->getDatabase()->Update($this->table, [
+            "fname"=>$employee->fname,
+            "mname"=>$employee->mname,
+            "lname"=>$employee->lname,
+            "phone"=>$employee->phone,
+            "email"=>$employee->email,
+            "date_of_join"=>$dateOfJoin,
+            "employee_type_id"=>$empTypeId,
+            "employee_role_id"=>$empRoleId,
+        ],"id",[$employee->getId()]);
+        $this->dataMapper->save($employee); // to dispatch postpresist event
+    }
     public function save(Employee $employee)
     {
         $empRoleId= $employee->employeeRole->getId();

@@ -43,6 +43,45 @@ class EmployeeController extends AbstractController
         ]);
     }
 
+    public function edit_page(int $employee_id):Response
+    {
+        $employeeTypes = $this->employeeTypeRepo->getAll();
+        $employeeRoles = $this->employeeRoleRepo->getAll();
+
+        $employee = $this->employeeRepo->findById($employee_id);
+        return $this->render('pages/employee/edit.employee',[
+            "title"=>"Edit Employee",
+            "employeeTypes"=>$employeeTypes,
+            "employeeRoles"=>$employeeRoles,
+            "employee"=>$employee
+        ]);
+
+    }
+
+    public function edit():Response
+    {
+
+        $form = new EmployeeForm($this->employeeMapper,$this->employeeTypeRepo,$this->employeeRoleRepo);
+        $form->setFields(
+            $this->request->input('fname'),
+            $this->request->input('mname'),
+            $this->request->input('lname'),
+            $this->request->input('phone'),
+            $this->request->input('email'),
+            $this->request->input('employeeType'),
+            $this->request->input('dateOfJoin'),
+            $this->request->input('employeeRole')
+        );
+        if($form->hasValidationErrors()){
+            foreach($form->getValidationErrors() as $error){
+                $this->request->getSession()->setFlash("error", $error);
+            }
+            return new RedirectResponse("/edit-employee/{$this->request->input("id")}");
+        }
+        $employee = $form->edit($this->request->input("id"));
+        $this->request->getSession()->setFlash("success",sprintf("Edited EMPLOYEE Successfully!!! "));
+        return new RedirectResponse('/show-employees');
+    }
     public function store(): Response
     {
 
@@ -67,7 +106,7 @@ class EmployeeController extends AbstractController
         $this->request->getSession()->setFlash("success",sprintf("NEW EMPLOYEE ADDED!!! %s %s ",$employee->fname,$employee->lname));
         return new RedirectResponse('/add-employee');
 
-        
+
     }
 
     public function role_index():Response

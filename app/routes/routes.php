@@ -22,6 +22,8 @@ return [
     ['GET','/show-employees',[\Aimocs\Iis\Controller\EmployeeController::class,'showAll']],
     ['GET','/show-roles-employee',[\Aimocs\Iis\Controller\EmployeeController::class,'role_showAll']],
     ['GET','/add-employee',[\Aimocs\Iis\Controller\EmployeeController::class,'index']],
+    ['GET','/edit-employee/{employee_id}',[\Aimocs\Iis\Controller\EmployeeController::class,'edit_page']],
+    ['POST','/edit-employee',[\Aimocs\Iis\Controller\EmployeeController::class,'edit']],
     ['POST','/add-employee',[\Aimocs\Iis\Controller\EmployeeController::class,'store']],
     ['GET','/add-role-employee',[\Aimocs\Iis\Controller\EmployeeController::class,'role_index']],
     ['POST','/add-role-employee',[\Aimocs\Iis\Controller\EmployeeController::class,'role_store']],
