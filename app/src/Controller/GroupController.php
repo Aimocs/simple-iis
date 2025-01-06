@@ -80,4 +80,42 @@ class GroupController extends  AbstractController
         return $response;
     }
 
+    public function edit_page(int $group_id): Response
+    {
+        $group = $this->groupRepo->findById($group_id);
+        $courses = $this->courseRepo->getAll();
+        return $this->render("pages/group/edit.group",["title"=>"Edit Group","courses"=>$courses,"group"=>$group]);
+    }
+
+    public function edit():Response
+    {
+        $id = $this->request->input("id");
+        $course_id = $this->request->input("course_id");
+        $teacher_id = $this->request->input("teacher_id");
+        $name = $this->request->input("name");
+        $start_datetime = $this->request->input("start_datetime");
+        $capacity = $this->request->input("capacity");
+        $capacity = empty($capacity) ? null : $capacity;
+        $form = new GroupForm($this->groupMapper,$this->courseRepo,$this->teacherRepo);
+        $form->setFields(
+            $name,
+            $course_id,
+            $teacher_id,
+            new \DateTimeImmutable($start_datetime),
+            $capacity
+        );
+        if($form->hasValidationErrors()){
+            foreach($form->getValidationErrors() as $error){
+                $this->request->getSession()->setFlash("error", $error);
+            }
+            return new RedirectResponse("/edit-group/{$this->request->input("id")}");
+        }
+        $group =$form->edit($id);
+        $teacher = $this->teacherRepo->findById($teacher_id);
+        $course = $this->courseRepo->findById($course_id);
+        $this->request->getSession()->setFlash("success",sprintf("Edited  Group -> %s Course -> %s, Teacher -> %s",$name,$course->name,$teacher->fname . " ".$teacher->mname." ".$teacher->lname));
+        return new RedirectResponse('/show-groups');
+
+    }
+
 }

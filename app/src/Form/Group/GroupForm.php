@@ -36,6 +36,22 @@ class GroupForm
         $this->capacity = $capacity;
     }
 
+    public function edit(int $id):Group
+    {
+        $course = $this->courseRepo->findById($this->course_id);
+        $teacher = $this->teacherRepo->findById($this->teacher_id);
+        $group = Group::create(
+            $this->name,
+            $course,
+            $teacher,
+            $this->start_datetime,
+            $this->capacity,
+            $id
+        );
+        $this->groupMapper->edit($group);
+        return $group;
+
+    }
     public function save():Group
     {
         $course = $this->courseRepo->findById($this->course_id);

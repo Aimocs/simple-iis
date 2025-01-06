@@ -1,0 +1,74 @@
+{% extends '/layouts/base.yolo' %}
+{% block content %}
+<div class="container">
+
+    <form method="post" action="/edit-group">
+        <h2>Edit Group</h2>
+
+        <input name="id" type="number" hidden value="{{$group->getId()}}">
+        <label for="name">Group Name:</label>
+        <input type="text" id="name" value="{{$group->name}}" name="name" required>
+
+        <label for="course">Course:</label>
+        <select id="course" name="course_id" required onchange="fetchTeachers()">
+            {% foreach($courses as $course){ %}
+            <option value="{{$course->getId()}}" {{ $group->course->getId() === $course->getId() ? "selected":"" }} >{{$course->name}}</option>
+            {% } %}
+        </select>
+
+        <label for="teacher">Teacher:</label>
+
+        <select id="teacher" name="teacher_id" required data-id="{{$group->teacher->getId()}}">
+            <!-- Populate dynamically with available teachers -->
+        </select>
+
+        <label for="start_datetime">Start Date and Time:</label>
+        <input type="datetime-local" id="start_datetime" name="start_datetime" value="{{ ($group->start_datetime)->format('Y-m-d H:i:s')}}" required>
+
+        <label for="capacity">Capacity (optional):</label>
+        <input type="number" id="capacity" name="capacity" min="1" value="{{$group->capacity}}">
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<script>
+    function fetchTeachers() {
+        var courseId = document.getElementById('course').value; // Get selected course ID
+        var teacherSelect = document.getElementById('teacher'); // Teacher dropdown
+        var teacher_id = teacherSelect.getAttribute("data-id");
+        if (!courseId) {
+            teacherSelect.innerHTML = '<option value="">Select Course First</option>';
+            return;
+        }
+
+        // Create a new XMLHttpRequest object
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/api/get-course-teachers/' + courseId, true); // URL to get teachers for the selected course
+
+        // Define the event handler for the response
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var teachers = JSON.parse(xhr.responseText); // Parse the JSON response
+                teacherSelect.innerHTML = '<option value="">Select Teacher</option>'; // Reset teacher dropdown
+
+                // Populate teacher dropdown with the new options
+                teachers.forEach(function(teacher) {
+                    var option = document.createElement('option');
+                    option.value = teacher.id; // Teacher ID as the value
+                    if(teacher.id == teacher_id){
+                        option.setAttribute('selected', 'selected');
+                    }
+                    option.textContent = teacher.full_name; // Teacher full name as the text
+                    teacherSelect.appendChild(option);
+                });
+            }
+        };
+
+        // Send the request
+        xhr.send();
+    }
+
+    fetchTeachers();
+</script>
+{% endblock %}

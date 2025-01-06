@@ -15,6 +15,16 @@ class GroupMapper
     {
     }
 
+    public function edit(Group $group)
+    {
+        $start_datetime = ($group->start_datetime)->format('Y-m-d H:i:s');
+        $insertParams = ["course_id"=>$group->course->getId(),"teacher_id"=>$group->teacher->getId(),"name"=>$group->name,"start_datetime"=>$start_datetime];
+        if($group->capacity !== null ){
+            $insertParams["capacity"]= $group->capacity;
+        }
+        $this->dataMapper->getDatabase()->Update($this->table,$insertParams,"id",[$group->getId()]);
+        $this->dataMapper->save($group);
+    }
     public function save(Group $group)
     {
         $start_datetime = ($group->start_datetime)->format('Y-m-d H:i:s');
