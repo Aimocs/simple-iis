@@ -40,6 +40,24 @@ class DetailFrom
         $this->level = $level;
     }
 
+    public function edit(int $id): Student
+    {
+
+        $student = Student::create(
+            $this->name,
+            $this->age,
+            $this->gender,
+            $this->phone,
+            $this->email,
+            $this->address,
+            $this->level,
+            $id
+        );
+
+        $this->studentMapper->edit($student);
+        return $student;
+
+    }
     public function save(): Student
     {
         $student = Student::create($this->name, $this->age, $this->gender, $this->phone,$this->email, $this->address, $this->level);

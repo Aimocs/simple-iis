@@ -13,6 +13,11 @@ class StudentMapper
     {
     }
 
+    public function edit(Student $student)
+    {
+        $this->dataMapper->getDatabase()->Update($this->table, ['fullname'=>$student->fullname,'age'=>$student->age,'phone'=>$student->phone,'gender'=>$student->gender,'email'=>$student->email,'address'=>$student->address,'level'=>$student->level],"id",[$student->getId()]);
+        $this->dataMapper->save($student);
+    }
     public function save(Student $student)
     {
         $createdAt= ( $student->getCreatedAt() )->format('Y-m-d H:i:s');

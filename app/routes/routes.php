@@ -47,6 +47,8 @@ return [
     ['GET','/add-student',[\Aimocs\Iis\Controller\StudentController::class,'index']],
     ['GET','/show-students',[\Aimocs\Iis\Controller\StudentController::class,'showAll']],
     ['POST','/add-student',[\Aimocs\Iis\Controller\StudentController::class,'store']],
+    ['GET','/edit-student/{student_id}',[\Aimocs\Iis\Controller\StudentController::class,'edit_page']],
+    ['POST','/edit-student',[\Aimocs\Iis\Controller\StudentController::class,'edit']],
     ['GET','/api/delete/{id}/{table}',[\Aimocs\Iis\Controller\DeleteController::class,'delete']],
     ['GET','/dash',[\Aimocs\Iis\Controller\DashboardController::class,'index',
         [
