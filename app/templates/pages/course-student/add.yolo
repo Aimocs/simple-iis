@@ -3,6 +3,12 @@
 <div class="container">
     <h2>Add Course to Student</h2>
     <form action="/add-course-student" method="post">
+        <div>
+            <h4>Courses Already Enrolled:</h4>
+            {%foreach($enrolledCourses as $course){ %}
+            <h5 style="color: yellow">{{$course->name}}</h5>
+            {% } %}
+        </div>
          <div class="form-group inline">
              <label for="course-student">Course Type:</label><br>
              <select id="course-student" name="course_id" required>

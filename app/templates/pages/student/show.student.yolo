@@ -24,7 +24,7 @@
                     <a href="/show-student-payment/{{$student->getId()}}">View Payments</a>
                 </button>
                 <button class="table-btn">
-                    <a href="/add-course-student?id={{$student->getId()}}">AddCourse</a>
+                    <a href="/add-course-student?id={{$student->getId()}}">Enroll To Course</a>
                 </button>
                 <button class="table-btn">
                     <a href="/add-student-payment?id={{$student->getId()}}">Add Installment</a>

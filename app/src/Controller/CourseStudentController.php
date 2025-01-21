@@ -32,7 +32,8 @@ class CourseStudentController extends  AbstractController
             throw new HttpException("Bad Request",404);
         }
         $courses= $this->courseStudentRepo->getCoursesExceptStudentId($id);
-        return $this->render("pages/course-student/add",["title"=>"Add course to student","courses"=>$courses,"id"=>$id]);
+        $enrolledCourses = $this->courseStudentRepo->getCoursesByStudentId($id);
+        return $this->render("pages/course-student/add",["title"=>"Add course to student","courses"=>$courses,"enrolledCourses"=>$enrolledCourses,"id"=>$id]);
     }
 
     public function store():Response

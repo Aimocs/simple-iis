@@ -39,11 +39,12 @@ class StudentPaymentController extends AbstractController
         $courses_students = $this->courseStudentRepo->getCourseStudentsByStudentId($student_id);
         $payments = [];
         foreach($courses_students as $courses_student ){
-            $payments[] = $this->studentPaymentRepo->getPaymentsByStudentId($courses_student->getId());
+            $course = $courses_student->course;
+            $payments["{$course->name}"] = $this->studentPaymentRepo->getPaymentsByStudentId($courses_student->getId());
         }
         $payments = array_filter($payments);
 
-        return $this->render("pages/student-payment/show",["title"=>"Show Payment Details","payments"=>$payments]);
+        return $this->render("pages/student-payment/show",["title"=>"Show Payment Details","payments"=>$payments,"id"=>$student_id]);
 
     }
 
